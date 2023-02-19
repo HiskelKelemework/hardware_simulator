@@ -1,4 +1,4 @@
-class IC {
+abstract class IC {
   late List<Input> _inputs;
   late List<Output> _outputs;
 

@@ -17,10 +17,16 @@ pipeOutputToInput(List<IC> outComponents, List<IC> inputComponents) {
 }
 
 class Printer extends IC {
-  Printer() : super(inNum: 1, outNum: 1, name: 'printer');
+  Printer({String? name, int? depth})
+      : super(
+          inNum: 1,
+          outNum: 1,
+          name: 'printer',
+          depth: depth ?? 0,
+        );
 
   @override
   void trigger() {
-    print('triggered with value ${inputs.first.val}');
+    print('$name:: triggered with value ${inputs.first.val}');
   }
 }

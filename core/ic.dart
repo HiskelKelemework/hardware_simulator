@@ -2,14 +2,18 @@ abstract class IC {
   late List<Input> _inputs;
   late List<Output> _outputs;
 
-  int _registerCount = 0;
-
   List<Input> get inputs => _inputs;
   List<Output> get outputs => _outputs;
 
-  final String? name;
+  final String name;
+  final int depth;
 
-  IC({required int inNum, required int outNum, required this.name}) {
+  IC({
+    required int inNum,
+    required int outNum,
+    required this.name,
+    required this.depth,
+  }) {
     assert(inNum > 0, 'inputs must be positive');
     assert(outNum > 0, 'outputs must be positive');
 
@@ -18,14 +22,9 @@ abstract class IC {
   }
 
   void trigger() {
-    throw UnimplementedError();
-  }
-
-  void register() {
-    if (++_registerCount == inputs.length) {
-      trigger();
-      _registerCount = 0;
-    }
+    // final padding = '   ' * depth;
+    // final inputs = _inputs.map((e) => e.val).toList();
+    // print('$padding $name :: inputs $inputs');
   }
 }
 
@@ -37,9 +36,10 @@ class Input {
 
   Input(this.ic);
 
-  write(bool val) {
-    _val = val;
-    ic.register();
+  write(bool signal) {
+    if (signal == _val) return;
+    _val = signal;
+    ic.trigger();
   }
 }
 
